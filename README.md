@@ -4,6 +4,8 @@ InPicker Region Designer is a Python-based framework for defining, analyzing, an
 
 The system leverages principles from **computational geometry**, **spatial analysis**, and **optimization theory** to model regions, evaluate point inclusion, and support efficient picking workflows. Its design follows a **clean architecture approach**, ensuring a clear separation between domain logic, application use cases, and infrastructure concerns, which makes the system highly modular, testable, and extensible.
 
+---
+
 ## Problem Statement
 
 In logistics and warehouse environments, operational efficiency depends heavily on how physical space is structured and utilized. Key challenges include:
@@ -14,105 +16,203 @@ In logistics and warehouse environments, operational efficiency depends heavily 
 
 These challenges can be formalized as a **spatial optimization problem**, where:
 
-- The environment is modeled as a 2D coordinate space.
-- Regions are defined as geometric subsets of that space.
-- Picking operations aim to minimize a cost function, typically based on distance.
+- The environment is modeled as a 2D coordinate space
+- Regions are defined as geometric subsets of that space
+- Picking operations aim to minimize a cost function based on distance
 
 The goal of this project is to provide a structured and extensible framework to model these problems, evaluate spatial relationships, and enable more efficient decision-making in picking workflows.
 
+---
 
 ## Mathematical Foundations
 
-The system is grounded in basic principles of **Euclidean geometry** and **spatial optimization**, which enable the modeling and evaluation of picking regions.
+The system is grounded in principles of **Euclidean geometry** and **spatial optimization**, enabling efficient modeling and evaluation of picking regions.
 
+---
 
 ### 1. Spatial Model
 
 The environment is represented as a two-dimensional Cartesian space:
 
-\[
-(x, y) \in \mathbb{R}^2
-\]
+```
+(x, y) ∈ R^2
+```
 
 Each point corresponds to a physical location (e.g., a shelf, bin, or waypoint in a warehouse).
 
+---
 
 ### 2. Region Definition
 
 A region is defined as a subset of the plane:
 
-\[
-R \subseteq \mathbb{R}^2
-\]
+```
+R ⊆ R^2
+```
 
-Regions partition the space into manageable areas and serve as the basis for assigning tasks and evaluating spatial relationships.
+Regions partition the space into manageable areas used for assigning tasks and evaluating spatial relationships.
 
+---
 
 ### 3. Axis-Aligned Bounding Box (AABB)
 
-Rectangular regions are modeled using axis-aligned bounding boxes:
+Rectangular regions are defined as:
 
-\[
-R = \{(x, y) \mid x_{\min} \leq x \leq x_{\max}, \; y_{\min} \leq y \leq y_{\max} \}
-\]
+```
+R = {(x, y) | x_min ≤ x ≤ x_max AND y_min ≤ y ≤ y_max}
+```
 
-This representation allows for constant-time inclusion checks and is computationally efficient for grid-based layouts.
+This representation allows for fast inclusion checks and is efficient for grid-based layouts.
 
+---
 
 ### 4. Point Inclusion Test
 
 To determine whether a point belongs to a region:
 
-\[
-P = (x, y) \in R \iff 
-\left( x_{\min} \leq x \leq x_{\max} \right) \land 
-\left( y_{\min} \leq y \leq y_{\max} \right)
-\]
+```
+A point P = (x, y) belongs to R if:
 
-This operation is fundamental for assigning items or agents to regions.
+x_min ≤ x ≤ x_max
+AND
+y_min ≤ y ≤ y_max
+```
 
+This is one of the core operations of the system.
+
+---
 
 ### 5. Distance Metric (Euclidean)
 
-The primary cost metric used in the system is the Euclidean distance between two points:
+The Euclidean distance between two points is defined as:
 
-:contentReference[oaicite:0]{index=0}
+```
+d(P1, P2) = sqrt((x2 - x1)^2 + (y2 - y1)^2)
+```
 
-This metric is used to estimate travel cost, evaluate proximity, and support optimization strategies.
+This metric is used to:
 
+- Estimate travel cost
+- Evaluate proximity between points
+- Support optimization strategies
+
+---
 
 ### 6. Optimization Objective
 
-Picking workflows can be modeled as a path optimization problem:
+Picking workflows can be modeled as:
 
-\[
-\min \sum_{i=1}^{n-1} d(P_i, P_{i+1})
-\]
+```
+Minimize total distance:
+
+Σ d(Pi, Pi+1)
+```
 
 Where:
-- \( P_i \) represents a sequence of picking locations
-- The objective is to minimize total travel distance
 
-This formulation is closely related to classical problems such as the **Traveling Salesman Problem (TSP)** and can be extended with additional constraints (e.g., region priorities, capacity limits).
+- Pi represents a sequence of picking locations  
+- The objective is to minimize total travel distance  
 
+This problem is closely related to:
+
+- Traveling Salesman Problem (TSP)
+- Shortest path optimization
+
+---
 
 ## Architecture
 
+The project follows a clean and modular structure:
+
+```
 inpicker/
-├── domain/
-├── application/
-├── infrastructure
+├── domain/         # Core logic and geometry
+├── application/    # Use cases and orchestration
+├── infrastructure/ # I/O and configuration
+├── app.py          # Entry point
+```
+
+### Layer Responsibilities
+
+- **Domain**
+  - Geometry calculations
+  - Region definitions
+  - Core business rules
+
+- **Application**
+  - Use case orchestration
+  - Region evaluation logic
+
+- **Infrastructure**
+  - Configuration handling (JSON)
+  - Input/output operations
+
+---
 
 ## Features
 
-- Region definition
-- Point evaluation
-- Distance calculations
-- Clean architecture
+- Region definition using geometric models
+- Point-in-region evaluation
+- Distance-based reasoning
+- Clean architecture design
+- JSON-driven configuration
 
+---
 
-## ▶️ Usage
+## Installation
 
+```bash
+git clone https://github.com/EidoAut/InPickerRegionDesigner.git
+cd InPickerRegionDesigner
+```
+
+(Optional) Create a virtual environment:
+
+```bash
+python -m venv venv
+source venv/bin/activate   # Linux / Mac
+venv\Scripts\activate      # Windows
+```
+
+---
+
+## Usage
+
+Run the application:
+
+```bash
 python app.py
+```
 
+---
 
+## Example Workflow
+
+1. Define regions in a configuration file
+2. Load the configuration
+3. Evaluate points against regions
+4. Compute distances if needed
+5. Analyze results
+
+---
+
+## Testing
+
+```bash
+pytest
+```
+
+---
+
+## Future Improvements
+
+- Polygonal region support
+- Pathfinding algorithms (A*, Dijkstra)
+- Visualization (matplotlib or UI)
+- Spatial indexing for performance optimization
+
+---
+
+## License
+
+MIT License
