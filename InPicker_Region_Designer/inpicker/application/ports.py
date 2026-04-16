@@ -1,0 +1,23 @@
+from __future__ import annotations
+
+from typing import Any, Dict, List, Protocol
+
+import numpy as np
+
+from inpicker.domain.entities import AppState
+
+
+class ConfigurationRepository(Protocol):
+    def save_configuration(self, path: str, state: AppState) -> None: ...
+    def load_configuration(self, path: str, state: AppState) -> None: ...
+    def export_payload(self, path: str, payload: Dict[str, Any]) -> None: ...
+    def export_regions_csv(self, path: str, rows: List[Dict[str, Any]]) -> None: ...
+
+
+class PickPointReader(Protocol):
+    def read_csv_points(self, path: str) -> np.ndarray: ...
+
+
+class VisualizationGateway(Protocol):
+    def open_regions_and_picks(self, state: AppState) -> str: ...
+    def open_colored_surfaces(self, state: AppState, resolution: int) -> str: ...
