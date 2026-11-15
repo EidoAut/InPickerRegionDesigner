@@ -1,4 +1,17 @@
+<!-- EIDO repository presentation. Existing engineering documentation is retained below. -->
+<p align="center"><img src="docs/assets/eido-project-banner.svg" alt="InPicker Region Designer — EIDO Automation" width="100%"></p>
+
 # InPicker Region Designer
+
+**Spatial region planning for robotic picking**
+
+A Python tool for designing, testing and visualizing picking regions through computational geometry and simulation.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-5bbc85.svg)](LICENSE)
+
+**Maintained by [EIDO Automation](https://github.com/EidoAut).** Released under the [MIT license](LICENSE). Review the documentation below for supported configurations, security boundaries and known limitations.
+
+## Project documentation
 
 InPicker Region Designer is a Python-based framework for defining, analyzing, and optimizing spatial picking regions within structured environments such as warehouses, grid systems, and coordinate-based layouts.
 
